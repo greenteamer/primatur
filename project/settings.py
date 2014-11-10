@@ -9,6 +9,7 @@ CURRPATH = os.path.abspath('.')
 
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+ROOT_URLCONF = 'project.urls'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -67,7 +68,9 @@ USE_L10N = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 # MEDIA_ROOT = 'C:/webmagazinedjango/webshop/static/media/'
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media').replace('\\', '/')
+# MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media').replace('\\', '/')
+MEDIA_ROOT = '%s/media' % CURRPATH
+CKEDITOR_UPLOAD_PATH = '/media/uploads'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -94,8 +97,8 @@ STATICFILES_DIRS = (
 	# Put strings here, like "/home/html/static" or "C:/www/django/static".
 	# Always use forward slashes, even on Windows.
 	# Don't forget to use absolute paths, not relative paths.
-	os.path.join(PROJECT_PATH, 'static').replace('\\', '/'),
-	os.path.join(PROJECT_PATH, 'static/media').replace('\\', '/'),
+	os.path.join(CURRPATH, 'static').replace('\\', '/'),
+	os.path.join(CURRPATH, 'static/media').replace('\\', '/'),
 )
 
 # List of finder classes that know how to find static files in
@@ -104,7 +107,6 @@ STATICFILES_FINDERS = (
 	'django.contrib.staticfiles.finders.FileSystemFinder',
 	'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'dajaxice.finders.DajaxiceFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -157,7 +159,9 @@ DAJAXICE_MEDIA_PREFIX="dajaxice"
 
 SOUTH_MIGRATION_MODULES = {
     'captcha': 'captcha.south_migrations',
+    'sitetree': 'sitetree.south_migrations',
 }
+
 
 INSTALLED_APPS = (
     # 'admin_tools',
@@ -170,13 +174,12 @@ INSTALLED_APPS = (
 	'django.contrib.sites',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'django.contrib.flatpages',
+	# 'django.contrib.flatpages',
 	# Uncomment the next line to enable the admin:
 	'django.contrib.admin',
     'south',
 	# Uncomment the next line to enable admin documentation:
 	# 'django.contrib.admindocs',
-	# Custom modules
     # 'mptt',
     'bootstrap3',
     # 'sorl.thumbnail',
@@ -184,7 +187,14 @@ INSTALLED_APPS = (
     'dajaxice',
     'dajax',
     'captcha',
+    'south',
+    'sitetree',
+    'flatblocks',
     # 'robokassa',
+    # Custom modules
+    'main',
+    'slider',
+    'country',
 )
 
 THUMBNAIL_DEBUG = True
