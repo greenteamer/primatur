@@ -10,8 +10,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ckeditor/', include('ckeditor.urls')),
 
-    url(r'^', include('main.urls')),
     url(r'^country/', include('country.urls')),
+    url(r'^', include('main.urls')),
 )
 
 if settings.DEBUG:

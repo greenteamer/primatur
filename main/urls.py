@@ -7,8 +7,8 @@ urlpatterns = patterns('main.views',
     url(r'^$', 'home_view',
         {'template_name':'main/home.html'},
         name='home'),
-    # Просмотр товара
-    # url(r'^product/(?P<product_slug>[-\w]+)/$', 'product_view',
-    #     {'template_name':'catalog/product.html'},
-    #     name='catalog_product'),
+    # Страницы сайта
+    url(r'^(?P<slug>[-\w]+)/$', 'page_view',
+        {'template_name':'main/page.html'},
+        name='page_view'),
 )

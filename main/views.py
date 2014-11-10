@@ -17,3 +17,10 @@ def home_view(request, template_name="main/home.html"):
         # static = STATICFILES_DIRS
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
+
+
+def page_view(request, slug, template_name="main/page.html"):
+    # page  = Pages.objects.get(slug=slug)
+    page = get_object_or_404(Pages, slug=slug)
+    return render_to_response(template_name, locals(),
+                              context_instance=RequestContext(request))
