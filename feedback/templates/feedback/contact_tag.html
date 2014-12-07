@@ -1,0 +1,13 @@
+{% load i18n %}
+{% load main_tags %}
+
+{% if form %}
+    <div class="col-xs-9">
+        <form action="." id="contact_form" method="post">
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <input id="order_submit" class="btn btn-primary" value="Отправить" type="submit"/>
+        </form>
+        {{ error }}
+    </div>
+{% endif %}

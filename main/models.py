@@ -7,6 +7,7 @@ from ckeditor.fields import RichTextField
 class Pages(models.Model):
     name = models.CharField(verbose_name=u'Название страницы', max_length=100)
     slug = AutoSlugField(editable=True)
+    image = models.ImageField(verbose_name=u'Изображение', upload_to='pages')
 
     body = RichTextField()
     is_aqua = models.BooleanField(verbose_name=u'На главную', default=False)

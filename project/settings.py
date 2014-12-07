@@ -195,6 +195,7 @@ INSTALLED_APPS = (
     'main',
     'slider',
     'country',
+    'feedback',
 )
 
 THUMBNAIL_DEBUG = True

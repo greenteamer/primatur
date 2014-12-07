@@ -30,21 +30,55 @@
 
         {% bootstrap_javascript %}
         {% bootstrap_messages %}
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('#menu li').hover(
+                    function () {
+                        //show its submenu
+                        $('ul', this).stop().slideDown(100);
+
+                    },
+                    function () {
+                        //hide its submenu
+                        $('ul', this).stop().slideUp(100);
+                    }
+                );
+
+            });
+	    </script>
     </head>
     <body>
 {#        {% include "common/navigation.html" %}#}
+
+    <div id="top_menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 top_menu">
+                    {% sitetree_menu from "topmenu" include "trunk" %}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="header">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    {% sitetree_menu from "topmenu" include "trunk" %}
+                    <img src="{{ STATIC_URL }}uploads/logo.png" alt=""/>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu">
+        <div class="container">
+            <div class="row">
                 <div class="col-xs-12">
-                    <h1>БОЛЬШОЙ БОЛЬШОЙ ЛОГОТИП</h1>
-                </div>
-                <div class="col-xs-12">
-                    {% sitetree_menu from "maintree" include "trunk" %}
+                    <div class="menu">
+                        {% sitetree_menu from "maintree" include "trunk" %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,35 +91,37 @@
     {% endblock %}
 
     {% block footer %}
-        <div class="container">
-            <div class="row">
+        <div class="footer">
+            <div class="container">
+                <div class="row">
 
-                <div class="col-xs-3">
-                    <span>© 2013 |  <a href="" title="Privacy Policy">Privacy Policy</a></span>
-                </div>
-                <div class="col-xs-2">
-                    {% sitetree_menu from "topmenu" include "trunk" %}
-                </div>
-                <div class="col-xs-2">
-                    {% sitetree_menu from "maintree" include "trunk" %}
-                </div>
-                <div class="col-xs-2">
-                    {% sitetree_menu from "article_links" include "trunk" %}
-                </div>
+                    <div class="col-xs-3">
+                        <span>© 2013 |  <a href="" title="Privacy Policy">Privacy Policy</a></span>
+                    </div>
+                    <div class="col-xs-2">
+                        {% sitetree_menu from "topmenu" include "trunk" %}
+                    </div>
+                    <div class="col-xs-2">
+                        {% sitetree_menu from "maintree" include "trunk" %}
+                    </div>
+                    <div class="col-xs-2">
+                        {% sitetree_menu from "article_links" include "trunk" %}
+                    </div>
 
-                <div class="col-xs-3">
-                    <address class="vcard">
-                        <div class="meta_format"><span class="tel"><span class="value"><a href="tel:1 800 123 1234">1 800 123 1234</a></span></span></div>
-                        <strong class="adr">
-                            <div class="meta_format"><span class="street-address">USA – Chicago,</span></div>
-                            <div class="meta_format"><span class="locality">901 Easte Street,</span></div>
-                            <div class="meta_format"> <span class="region">Wilmington, </span></div>
-                            <div class="meta_format"><span class="postal-code">CA 90744</span></div>
-                        </strong>
-                        <div class="meta_format link"><a class="email" href="mailto:mail@demolink.org"><span>e-mail:</span>mail@demolink.org</a></div>
-                    </address>
-                </div>
+                    <div class="col-xs-3">
+                        <address class="vcard">
+                            <div class="meta_format"><span class="tel"><span class="value"><a href="tel:1 800 123 1234">1 800 123 1234</a></span></span></div>
+                            <strong class="adr">
+                                <div class="meta_format"><span class="street-address">USA – Chicago,</span></div>
+                                <div class="meta_format"><span class="locality">901 Easte Street,</span></div>
+                                <div class="meta_format"> <span class="region">Wilmington, </span></div>
+                                <div class="meta_format"><span class="postal-code">CA 90744</span></div>
+                            </strong>
+                            <div class="meta_format link"><a class="email" href="mailto:mail@demolink.org"><span>e-mail:</span>mail@demolink.org</a></div>
+                        </address>
+                    </div>
 
+                </div>
             </div>
         </div>
 

@@ -5,10 +5,17 @@ from django.contrib.flatpages.models import FlatPage
 from django.template import context
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 
+"""send mail"""
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from project.settings import ADMIN_EMAIL
+
 from slider.models import *
+from feedback.forms import *
+from feedback.models import *
 
 
 register = template.Library()
@@ -27,3 +34,34 @@ def slider(context, request):
         'slides': slides,
     }
 register.inclusion_tag('slider/slider.html', takes_context=True)(slider)
+
+def contactForm_tag(context, request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid:
+            order = Contact()
+            order.name = request.POST['name']
+            order.phone = request.POST['phone']
+            order.email = request.POST['email']
+            destination = CountryDestination.objects.get(id=request.POST['destination'])
+            order.destination = destination
+            order.save()
+
+            # """отправка писем"""
+            subject = u'prima-tours.org заявка от %s' % order.name
+            message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n направление: %s \n e-mail: %s ' % (order.id, order.name, order.phone, order.destination, order.email)
+            send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
+
+        else:
+            form = ContactForm(request.POST)
+            return {
+                'form':form,
+                'error':form.errors,
+            }
+
+    else:
+        form = ContactForm()
+        return {
+            'form':form,
+        }
+register.inclusion_tag('feedback/contact_tag.html', takes_context=True)(contactForm_tag)
