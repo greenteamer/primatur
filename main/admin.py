@@ -8,3 +8,4 @@ class PageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Pages, PageAdmin)
+admin.site.register(Block)

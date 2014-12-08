@@ -71,6 +71,7 @@ USE_L10N = True
 # MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media').replace('\\', '/')
 MEDIA_ROOT = '%s/media' % CURRPATH
 CKEDITOR_UPLOAD_PATH = '/media/uploads'
+DIRECTORY = os.path.join(CURRPATH, 'media/uploads')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -150,6 +151,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.contrib.messages.context_processors.messages',
 )
 
+
 DAJAXICE_MEDIA_PREFIX="dajaxice"
 
 # DAJAX_FUNCTIONS=(
@@ -157,12 +159,29 @@ DAJAXICE_MEDIA_PREFIX="dajaxice"
 #     'webshop.ajaxapp.ajax.send_form',
 # )
 
+TINYMCE_JS_URL = os.path.join(CURRPATH, '/libraries/tinymce/tinymce.min.js')
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",
+    'theme': "advanced",
+}
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = True
+
+
 SOUTH_MIGRATION_MODULES = {
     'captcha': 'captcha.south_migrations',
     'sitetree': 'sitetree.south_migrations',
 }
 
+INPLACEEDIT_DISABLE_CLICK = False # "разрешаем сохранять изменения нажатием Enter"
+THUMBNAIL_DEBUG = True
+INPLACEEDIT_EVENT = "click" # "событие для вызова редактирования"
 
+ADAPTOR_INPLACEEDIT = {'auto_fk': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteForeingKeyField',
+                       'auto_m2m': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteManyToManyField',
+                       'image_thumb': 'inplaceeditform_extra_fields.fields.AdaptorImageThumbnailField',
+                       'tiny': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',
+                       'ckeditor': 'inplaceeditform_extra_fields.fields.AdaptorCKEDITORField',}
 INSTALLED_APPS = (
     # 'admin_tools',
     # 'admin_tools.theming',
@@ -176,6 +195,8 @@ INSTALLED_APPS = (
 	'django.contrib.staticfiles',
 	# 'django.contrib.flatpages',
 	# Uncomment the next line to enable the admin:
+    'grappelli',
+    'filebrowser',
 	'django.contrib.admin',
     'south',
 	# Uncomment the next line to enable admin documentation:
@@ -183,7 +204,6 @@ INSTALLED_APPS = (
     # 'mptt',
     'bootstrap3',
     # 'sorl.thumbnail',
-    'ckeditor',
     'dajaxice',
     'dajax',
     'captcha',
@@ -196,9 +216,18 @@ INSTALLED_APPS = (
     'slider',
     'country',
     'feedback',
+    'inplaceeditform',
+    'inplaceeditform_extra_fields',
+    'ckeditor',
+    'tinymce',
 )
 
-THUMBNAIL_DEBUG = True
+FILEBROWSER_MEDIA_ROOT = MEDIA_ROOT
+FILEBROWSER_MEDIA_URL = MEDIA_URL
+FILEBROWSER_STATIC_ROOT = STATIC_ROOT
+FILEBROWSER_STATIC_URL = STATIC_URL
+URL_FILEBROWSER_MEDIA = STATIC_URL + 'filebrowser/'
+PATH_FILEBROWSER_MEDIA = STATIC_ROOT + 'filebrowser/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

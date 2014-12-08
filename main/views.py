@@ -16,6 +16,7 @@ from feedback.models import *
 
 def home_view(request, template_name="main/home.html"):
     front_pages = Pages.objects.filter(is_aqua=True)
+    block_text = get_object_or_404(Block, is_main=True)
 
     #### test path settings
         # path = PROJECT_PATH

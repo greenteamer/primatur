@@ -18,4 +18,9 @@ class Pages(models.Model):
     def page_is_main(self):
         return self.is_aqua
 
+class Block(models.Model):
+    text = RichTextField()
+    is_main = models.BooleanField(verbose_name=u'Блок рядом со слайдером', default=False)
 
+    def block_is_main(self):
+        return self.is_main

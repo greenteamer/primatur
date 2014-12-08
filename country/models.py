@@ -3,6 +3,7 @@
 from django.db import models
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
+from tinymce import models as tinymce_models
 
 class Country(models.Model):
 

@@ -2,6 +2,7 @@
 {% load flatblock_tags %}
 {% load main_tags %}
 {% load sitetree %}
+{% load inplace_edit %}
 
 {% block slider %}
     <div class="slider">
@@ -11,8 +12,14 @@
                     {% slider request %}
                 </div>
                 <div class="col-xs-3">
-                    {% flatblock "slider_phone" %}
-                    {% flatblock "after_phone" %}
+                    {% if block %}
+                        {% inplace_edit "block_text.text|safe" adaptor="tiny" %}
+                    {% else %}
+                        <p>нет блока</p>
+                    {% endif %}
+{#                    {% inplace_edit "block.text|safe" adaptor="ckeditor" %}#}
+{#                    {% flatblock "slider_phone" %}#}
+{#                    {% flatblock "after_phone" %}#}
                 </div>
             </div>
         </div>
@@ -30,9 +37,16 @@
                         {% if front_pages %}
                             {% for page in front_pages %}
                                 <div class="col-xs-3">
-                                    <h2>{{ page.name }}</h2>
-                                    <p>{{ page.body|safe }}</p>
-                                    <a href="/{{ page.slug }}">подробнее</a>
+                                    <div class="home_block">
+{#                                        <img src="{{ page.image.url }}" alt=""/>#}
+                                        {% inplace_edit "page.image" adaptor="image_thumb", size="131x92" %}
+                                        <div class="home_block_content">
+                                            <h2>{% inplace_edit "page.name" adaptor="text",  auto_height=1, auto_width=1, edit_empty_value="Кликните для редактирования" %}</h2>
+{#                                            <p>{{ page.body|safe|truncatewords:20 }}</p>#}
+                                            {% inplace_edit "page.body|safe|truncatewords:20" adaptor="tiny" %}
+                                        </div>
+                                        <a href="/{{ page.slug }}">подробнее <i class="fa fa-angle-right"></i></a>
+                                    </div>
                                 </div>
                             {% endfor %}
                         {% endif %}

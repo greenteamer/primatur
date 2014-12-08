@@ -2,13 +2,17 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from filebrowser.sites import site
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
+    url(r'^grappelli/', include('grappelli.urls')),
+    # (r'^admin/filebrowser/', include(site.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ckeditor/', include('ckeditor.urls')),
+    (r'^inplaceeditform/', include('inplaceeditform.urls')),
+    (r'^tinymce/', include('tinymce.urls')),
 
     url(r'^country/', include('country.urls')),
     url(r'^', include('main.urls')),

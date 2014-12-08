@@ -1,6 +1,7 @@
 {% load bootstrap3 %}
 {% load staticfiles %}
 {% load sitetree %}
+{% load inplace_edit %}
 {#{% load catalog_tags %}#}
 {#{% load i18n %}#}
 {#{% load mptt_tags %}#}
@@ -15,6 +16,8 @@
         <link rel="stylesheet" type="text/css" href="{% static "theme/css/style.css" %}" />
         <link rel="stylesheet" type="text/css" href="{% static "libraries/flexslider/css/flexslider.css" %}" />
 
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
         <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Poiret+One&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
@@ -26,6 +29,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 
         <script src="{% static "libraries/jquery.min.js" %}"></script>
+        {% inplace_static %}
 {#        <script src="{% static "js/custom.js" %}"></script>#}
 
         {% bootstrap_javascript %}
@@ -45,9 +49,10 @@
                         $('ul', this).stop().slideUp(100);
                     }
                 );
-
             });
+            
 	    </script>
+
     </head>
     <body>
 {#        {% include "common/navigation.html" %}#}
