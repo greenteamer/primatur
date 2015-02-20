@@ -29,7 +29,7 @@
                     <div class="row">
 
                         {% if country %}
-                            <div class="col-xs-9">
+                            <div class="col-xs-9 country_item">
                                 <div class="row">
                                     <div class="col-xs-4">
                                         <div class="country_gallery">
@@ -45,10 +45,22 @@
                                     </div>
                                     {% for destination in country.get_country_destinations %}
                                         <div class="col-xs-12">
-                                            <h3>{% inplace_edit "destination.name" adaptor="text",  auto_height=1%}</h3>
-{#                                            <img src="{{ destination.image_url }}" alt=""/>#}
-                                            {% inplace_edit "destination.image" adaptor="image_thumb", size="100x100" %}
-                                            {% inplace_edit "destination.body|safe" adaptor="ckeditor" %}
+                                            <div class="destination">
+                                                <h3>{% inplace_edit "destination.name" adaptor="text",  auto_height=1%}</h3>
+                                                <div class="destination_image">{% inplace_edit "destination.image" adaptor="image_thumb", size="100x100" %}</div>
+                                                <div class="small_content">
+                                                    {% inplace_edit "destination.body|safe" adaptor="tiny" %}
+                                                </div>
+                                                <button type="button" class="btn more_button" data-toggle="collapse" data-target="#destination{{ destination.id }}">Подробнее</button>
+                                                <div id="destination{{ destination.id }}" class="collapse">
+                                                    <div class="destination_form">
+                                                        <h3>Отправить заявку</h3>
+                                                        <p>на направление: {{ destination.name }}</p>
+                                                        {% contactForm_tag request %}
+                                                    </div>
+                                                    {% inplace_edit "destination.body_all|safe" adaptor="tiny" %}
+                                                </div>
+                                            </div>
                                         </div>                                
                                     {% endfor %}                                                                        
                                 </div>
@@ -56,8 +68,16 @@
                         {% endif %}
 
                         <div class="col-xs-3">
-                            {% contactForm_tag request %}
-                            {% sitetree_menu from "article_links" include "trunk" %}
+                            <div class="destination_form">
+                                <h3>Отправить заявку</h3>
+                                <p>на направление: {{ destination.name }}</p>
+                                {% contactForm_tag request %}
+                            </div>
+                            <div class="article_liks">
+                                <h3>Полезные статьи</h3>
+                                {% sitetree_menu from "article_links" include "trunk" %}
+                            </div>
+
                         </div>
 
                     </div>

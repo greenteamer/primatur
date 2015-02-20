@@ -65,3 +65,23 @@ def contactForm_tag(context, request):
             'form':form,
         }
 register.inclusion_tag('feedback/contact_tag.html', takes_context=True)(contactForm_tag)
+
+def contactFormMini_tag(context, request):
+    if request.method == 'POST':
+        form = ContactFormMini(request.POST)
+        if form.is_valid:
+            subject = u'prima-tours.org заявка от %s' % request.POST['name']
+            message = u'Имя: %s \n телефон: %s' % (request.POST['name'], request.POST['phone'])
+            send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
+        else:
+            form = ContactFormMini(request.POST)
+            return {
+                'form':form,
+                'error':form.errors,
+            }
+    else:
+        form = ContactFormMini()
+        return {
+            'form':form,
+        }
+register.inclusion_tag('feedback/contact_mini_tag.html', takes_context=True)(contactFormMini_tag)

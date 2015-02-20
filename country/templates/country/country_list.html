@@ -28,19 +28,25 @@
                     <div class="row">
 
                         {% if country_list %}
-                            {% for country in country_list %}
-                                <div class="col-xs-9">
-                                    <h2>{{ country.name }}</h2>
-                                    <img src="{{ country.get_country_images.first.url }}" alt=""/>
-                                    <p>{{ country.body|truncatewords:100|safe }}</p>
-                                    <a href="{{ country.get_absolute_url }}">подробнее</a>
-                                </div>
-                            {% endfor %}
+                            <div class="col-xs-9 country_item">
+                                {% for country in country_list %}
+                                    <div class="">
+                                        <h2>{{ country.name }}</h2>
+                                        <img src="{{ country.get_country_images.first.url }}" alt=""/>
+                                        <p>{{ country.body|truncatewords:100|safe }}</p>
+                                        <a href="{{ country.get_absolute_url }}">подробнее</a>
+                                    </div>
+                                {% endfor %}
+                            </div>
                         {% endif %}
 
                         <div class="col-xs-3">
-                            {% contactForm_tag request %}
-                            {% sitetree_menu from "article_links" include "trunk" %}
+                            <h3>Отправить заявку</h3>
+                            {% contactFormMini_tag request %}
+                            <div class="article_liks">
+                                <h3>Полезные статьи</h3>
+                                {% sitetree_menu from "article_links" include "trunk" %}
+                            </div>
                         </div>
 
                     </div>

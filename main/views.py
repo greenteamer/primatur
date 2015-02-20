@@ -31,7 +31,7 @@ def page_view(request, slug, template_name="main/page.html"):
     page = get_object_or_404(Pages, slug=slug)
     if slug == 'kontakty':
         if request.method == 'POST':
-            form = ContactForm(request.POST)
+            form = ContactFormMini(request.POST)
             if form.is_valid():
                 # form.clean_phone()
                 order = Contact()
@@ -48,13 +48,13 @@ def page_view(request, slug, template_name="main/page.html"):
                 send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
 
             else:
-                form = ContactForm(request.POST)
+                form = ContactFormMini(request.POST)
                 return render(request, 'main/page.html', {
                     'form': form,
                     'error': form.errors,
                 })
         else:
-            form = ContactForm()
+            form = ContactFormMini()
 
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))

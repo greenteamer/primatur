@@ -11,8 +11,8 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        {% bootstrap_css %}
-
+{#        {% bootstrap_css %}#}
+        <link rel="stylesheet" type="text/css" href="{% static "libraries/bootstrap/css/bootstrap.min.css" %}" />
         <link rel="stylesheet" type="text/css" href="{% static "theme/css/style.css" %}" />
         <link rel="stylesheet" type="text/css" href="{% static "libraries/flexslider/css/flexslider.css" %}" />
 
@@ -32,7 +32,8 @@
         {% inplace_static %}
 {#        <script src="{% static "js/custom.js" %}"></script>#}
 
-        {% bootstrap_javascript %}
+{#        {% bootstrap_javascript %}#}
+        <script src="{% static "libraries/bootstrap/js/bootstrap.min.js" %}"></script>
         {% bootstrap_messages %}
 
         <script type="text/javascript">
@@ -49,6 +50,18 @@
                         $('ul', this).stop().slideUp(100);
                     }
                 );
+
+                $('.blok').hide();
+                $('#manage').click(function() {
+
+                    $(this).next().toggle();
+
+                    if($('.blok').css('display') == 'block')
+                        $('#manage').html('Скрыть');
+                    else
+                        $('#manage').html('Показать');
+                });
+
             });
             
 	    </script>

@@ -45,7 +45,8 @@ class CountryImage(models.Model):
 class CountryDestination(models.Model):
     name = models.CharField(verbose_name=u'Название направления', max_length=100)
     image = models.FileField(verbose_name=u'Фото для направления', upload_to='country',)
-    body = RichTextField()
+    body = RichTextField(verbose_name=u'Краткое описание')
+    body_all = RichTextField(verbose_name=u'Подробное описание')
     country = models.ForeignKey(Country, verbose_name=u'Для какой страны')
 
     def image_url(self):

@@ -9,7 +9,23 @@ from feedback.models import *
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Имя'}),
+            'phone': forms.TextInput(attrs={'placeholder': 'Телефон'}),
+            'email': forms.TextInput(attrs={'placeholder': 'E-mail'}),
+        }
+    def clean_phone(self):
+        """Проверка телефонного номера (>10 цифр)"""
+        phone = self.cleaned_data['phone']
+        stripped_phone = strip_non_numbers(phone)
+        if len(stripped_phone) < 11:
+            raise forms.ValidationError(_(u"""
+            Введите правильный телефон, например (8-920-351-21-21 или 89203512121)"""))
+        return self.cleaned_data['phone']
 
+class ContactFormMini(forms.Form):
+    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
+    phone = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
     def clean_phone(self):
         """Проверка телефонного номера (>10 цифр)"""
         phone = self.cleaned_data['phone']
