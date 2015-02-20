@@ -1,0 +1,71 @@
+{% extends "main/base.html" %}
+{% load flatblock_tags %}
+{% load main_tags %}
+{% load sitetree %}
+{% load inplace_edit %}
+
+{% block slider %}
+    <div class="slider">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-9">
+                    {% slider request %}
+                </div>
+                <div class="col-xs-3">
+                    {% if block %}
+                        {% inplace_edit "block_text.text|safe" adaptor="tiny" %}
+                    {% else %}
+                        <p>нет блока</p>
+                    {% endif %}
+{#                    {% inplace_edit "block.text|safe" adaptor="ckeditor" %}#}
+{#                    {% flatblock "slider_phone" %}#}
+{#                    {% flatblock "after_phone" %}#}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="main_content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+
+                        {% if front_pages %}
+                            <div class="col-xs-9">
+                                <h2>Интересное</h2>
+                                <div class="row">
+                                    {% for page in front_pages %}
+                                        <div class="col-xs-4">
+                                            <div class="home_block">
+        {#                                        <img src="{{ page.image.url }}" alt=""/>#}
+                                                {% inplace_edit "page.image" adaptor="image_thumb", size="131x92" %}
+                                                <div class="home_block_content">
+                                                    <div class="title">{% inplace_edit "page.name" adaptor="text",  auto_height=1, auto_width=1, edit_empty_value="Кликните для редактирования" %}</div>
+        {#                                            <p>{{ page.body|safe|truncatewords:20 }}</p>#}
+                                                    {% inplace_edit "page.body|safe|truncatewords:20" adaptor="tiny" %}
+                                                </div>
+                                                <a href="/{{ page.slug }}">подробнее <i class="fa fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="col-xs-3">
+                            <div class="article_liks">
+                                <h2>Полезные статьи</h2>
+                                {% sitetree_menu from "article_links" include "trunk" %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

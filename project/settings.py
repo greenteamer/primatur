@@ -9,6 +9,7 @@ CURRPATH = os.path.abspath('.')
 
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+ROOT_URLCONF = 'project.urls'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -67,7 +68,10 @@ USE_L10N = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 # MEDIA_ROOT = 'C:/webmagazinedjango/webshop/static/media/'
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media').replace('\\', '/')
+# MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media').replace('\\', '/')
+MEDIA_ROOT = '%s/media' % CURRPATH
+CKEDITOR_UPLOAD_PATH = '/media/uploads'
+DIRECTORY = os.path.join(CURRPATH, 'media/uploads')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -94,8 +98,8 @@ STATICFILES_DIRS = (
 	# Put strings here, like "/home/html/static" or "C:/www/django/static".
 	# Always use forward slashes, even on Windows.
 	# Don't forget to use absolute paths, not relative paths.
-	os.path.join(PROJECT_PATH, 'static').replace('\\', '/'),
-	os.path.join(PROJECT_PATH, 'static/media').replace('\\', '/'),
+	os.path.join(CURRPATH, 'static').replace('\\', '/'),
+	os.path.join(CURRPATH, 'static/media').replace('\\', '/'),
 )
 
 # List of finder classes that know how to find static files in
@@ -104,7 +108,6 @@ STATICFILES_FINDERS = (
 	'django.contrib.staticfiles.finders.FileSystemFinder',
 	'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'dajaxice.finders.DajaxiceFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -148,6 +151,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.contrib.messages.context_processors.messages',
 )
 
+
 DAJAXICE_MEDIA_PREFIX="dajaxice"
 
 # DAJAX_FUNCTIONS=(
@@ -155,10 +159,29 @@ DAJAXICE_MEDIA_PREFIX="dajaxice"
 #     'webshop.ajaxapp.ajax.send_form',
 # )
 
+TINYMCE_JS_URL = os.path.join(CURRPATH, '/libraries/tinymce/tinymce.min.js')
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",
+    'theme': "advanced",
+}
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = True
+
+
 SOUTH_MIGRATION_MODULES = {
     'captcha': 'captcha.south_migrations',
+    'sitetree': 'sitetree.south_migrations',
 }
 
+INPLACEEDIT_DISABLE_CLICK = False # "разрешаем сохранять изменения нажатием Enter"
+THUMBNAIL_DEBUG = True
+INPLACEEDIT_EVENT = "click" # "событие для вызова редактирования"
+
+ADAPTOR_INPLACEEDIT = {'auto_fk': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteForeingKeyField',
+                       'auto_m2m': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteManyToManyField',
+                       'image_thumb': 'inplaceeditform_extra_fields.fields.AdaptorImageThumbnailField',
+                       'tiny': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',
+                       'ckeditor': 'inplaceeditform_extra_fields.fields.AdaptorCKEDITORField',}
 INSTALLED_APPS = (
     # 'admin_tools',
     # 'admin_tools.theming',
@@ -170,24 +193,41 @@ INSTALLED_APPS = (
 	'django.contrib.sites',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'django.contrib.flatpages',
+	# 'django.contrib.flatpages',
 	# Uncomment the next line to enable the admin:
+    'grappelli',
+    'filebrowser',
 	'django.contrib.admin',
     'south',
 	# Uncomment the next line to enable admin documentation:
 	# 'django.contrib.admindocs',
-	# Custom modules
     # 'mptt',
     'bootstrap3',
     # 'sorl.thumbnail',
-    'ckeditor',
     'dajaxice',
     'dajax',
     'captcha',
+    'south',
+    'sitetree',
+    'flatblocks',
     # 'robokassa',
+    # Custom modules
+    'main',
+    'slider',
+    'country',
+    'feedback',
+    'inplaceeditform',
+    'inplaceeditform_extra_fields',
+    'ckeditor',
+    'tinymce',
 )
 
-THUMBNAIL_DEBUG = True
+FILEBROWSER_MEDIA_ROOT = MEDIA_ROOT
+FILEBROWSER_MEDIA_URL = MEDIA_URL
+FILEBROWSER_STATIC_ROOT = STATIC_ROOT
+FILEBROWSER_STATIC_URL = STATIC_URL
+URL_FILEBROWSER_MEDIA = STATIC_URL + 'filebrowser/'
+PATH_FILEBROWSER_MEDIA = STATIC_ROOT + 'filebrowser/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
