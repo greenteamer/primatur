@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
         ))
-        db.send_create_signal(u'flexslider', ['Slider'])
+        db.send_create_signal(u'slider', ['Slider'])
 
 
     def backwards(self, orm):
@@ -23,7 +23,7 @@ class Migration(SchemaMigration):
 
 
     models = {
-        u'flexslider.flexslider': {
+        u'slider.slider': {
             'Meta': {'object_name': 'Slider'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
@@ -31,4 +31,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['flexslider']
+    complete_apps = ['slider']
