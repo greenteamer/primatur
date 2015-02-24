@@ -195,7 +195,7 @@ INSTALLED_APPS = (
 	'django.contrib.staticfiles',
 	# 'django.contrib.flatpages',
 	# Uncomment the next line to enable the admin:
-    'grappelli',
+    # 'grappelli',
     'filebrowser',
 	'django.contrib.admin',
     'south',
