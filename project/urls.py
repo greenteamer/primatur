@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     # url(r'^grappelli/', include('grappelli.urls')),
     # (r'^admin/filebrowser/', include(site.urls)),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^ckeditor/', include('ckeditor.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     (r'^inplaceeditform/', include('inplaceeditform.urls')),
     (r'^tinymce/', include('tinymce.urls')),
 
