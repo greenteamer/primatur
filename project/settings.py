@@ -182,44 +182,35 @@ ADAPTOR_INPLACEEDIT = {'auto_fk': 'inplaceeditform_extra_fields.fields.AdaptorAu
                        'image_thumb': 'inplaceeditform_extra_fields.fields.AdaptorImageThumbnailField',
                        'tiny': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',
                        'ckeditor': 'inplaceeditform_extra_fields.fields.AdaptorCKEDITORField',}
+
+                       
 INSTALLED_APPS = (
-    # 'admin_tools',
-    # 'admin_tools.theming',
-    # 'admin_tools.menu',
-    # 'admin_tools.dashboard',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
 	'django.contrib.sites',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	# 'django.contrib.flatpages',
-	# Uncomment the next line to enable the admin:
-    # 'grappelli',
-    'filebrowser',
+
+  'filebrowser',
 	'django.contrib.admin',
-    'south',
-	# Uncomment the next line to enable admin documentation:
-	# 'django.contrib.admindocs',
-    # 'mptt',
-    'bootstrap3',
-    # 'sorl.thumbnail',
-    'dajaxice',
-    'dajax',
-    'captcha',
-    'south',
-    'sitetree',
-    'flatblocks',
-    # 'robokassa',
-    # Custom modules
-    'main',
-    'slider',
-    'country',
-    'feedback',
-    'inplaceeditform',
-    'inplaceeditform_extra_fields',
-    'ckeditor',
-    'tinymce',
+  'south',	
+  'bootstrap3',
+  'dajaxice',
+  'dajax',
+  'captcha',
+  'south',
+  'sitetree',
+  'flatblocks',
+
+  'main',
+  'slider',
+  'country',
+  'feedback',
+  'inplaceeditform',
+  'inplaceeditform_extra_fields',
+  'ckeditor',
+  'tinymce',
 )
 
 FILEBROWSER_MEDIA_ROOT = MEDIA_ROOT
